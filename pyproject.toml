@@ -8,6 +8,9 @@ authors = ["Sasank <gssasank@gmail.com>"]
 python = "^3.9"
 fastapi = "^0.79.0"
 uvicorn = "^0.18.2"
+app = "^0.0.1"
+motor = "^3.0.0"
+pytest = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 
