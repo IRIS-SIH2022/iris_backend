@@ -106,7 +106,7 @@ class GeoJSONModel(BaseModel):
     state: str = Field(...)
     district: str = Field(...)
     block: str = Field(...)
-    geoJSON: Json = Field(...)
+    geoJSON: dict = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -117,7 +117,7 @@ class GeoJSONModel(BaseModel):
                 "state": "Delhi",
                 "district": "North Delhi",
                 "block": "Block 1",
-                "geoJSON": json.dumps({"type": "Feature", "properties": {}, "geometry": {"type": "Polygon",
+                "geoJSON": {"type": "Feature", "properties": {}, "geometry": {"type": "Polygon",
                                                                               "coordinates": [
                                                                                   [
                                                                                       [77.206421, 28.627088],
@@ -132,7 +132,7 @@ class GeoJSONModel(BaseModel):
                                                                                       [77.199812, 28.623695],
                                                                                       [77.206421, 28.627088],
                                                                                   ],
-                                                                              ]}}),
+                                                                              ]}},
             }
         }
 
@@ -141,7 +141,7 @@ class UpdateGeoJSONData(BaseModel):
     state: Optional[str]
     district: Optional[str]
     block: Optional[str]
-    geoJSON: Optional[Json]
+    geoJSON: Optional[dict]
 
     class Config:
         arbitrary_types_allowed = True
@@ -151,7 +151,7 @@ class UpdateGeoJSONData(BaseModel):
                 "state": "Delhi",
                 "district": "North Delhi",
                 "block": "Block 1",
-                "geoJSON": json.dumps({"type": "Feature", "properties": {}, "geometry": {"type": "Polygon",
+                "geoJSON": {"type": "Feature", "properties": {}, "geometry": {"type": "Polygon",
                                                                               "coordinates": [
                                                                                   [
                                                                                       [77.206421, 28.627088],
@@ -166,7 +166,7 @@ class UpdateGeoJSONData(BaseModel):
                                                                                       [77.199812, 28.623695],
                                                                                       [77.206421, 28.627088],
                                                                                   ],
-                                                                              ]}}),
+                                                                              ]}},
             }
         }
 

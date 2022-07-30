@@ -1,2 +1,2 @@
-# Add .env file to gitignore 
-*.env
+/*.env
+/.env
