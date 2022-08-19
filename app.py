@@ -7,6 +7,7 @@ from bson import ObjectId
 from typing import Optional, List
 import motor.motor_asyncio
 from dotenv import load_dotenv
+from datetime import date, datetime, time, timedelta
 import json
 
 load_dotenv()
@@ -33,11 +34,16 @@ class PyObjectId(ObjectId):
 
 class CrimeDataModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    case_number: str = Field(...)
     lat: float = Field(...)
     lng: float = Field(...)
     crime: str = Field(...)
-    time: int = Field(...)
-    intensity: str = Field(...)
+    time: time = Field(...)
+    date: date = Field(...)
+    primary_type: str = Field(...)
+    description: str = Field(...)
+    act: str = Field(...)
+    station_id: int = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -103,9 +109,10 @@ async def show_student(id: str):
 
 class GeoJSONModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="gid")
-    state: str = Field(...)
+    type: str = Field(...)
+    station_id: int = Field(...)
+    name: str = Field(...)
     district: str = Field(...)
-    block: str = Field(...)
     geoJSON: dict = Field(...)
 
     class Config:

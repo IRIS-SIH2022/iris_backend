@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eaa5d636-c3ac-493d-8593-e5a3cdaefda2" name="Changes" comment="Updated Gitignore 🚫">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +75,9 @@
       <workItem from="1658328245538" duration="6894000" />
       <workItem from="1658925625271" duration="41000" />
       <workItem from="1659166755039" duration="611000" />
-      <workItem from="1659167374941" duration="14600000" />
+      <workItem from="1659167374941" duration="15195000" />
+      <workItem from="1659545846908" duration="1430000" />
+      <workItem from="1660744646341" duration="5940000" />
     </task>
     <task id="LOCAL-00001" summary="Using FastAPI ⚡️">
       <created>1658328459391</created>
