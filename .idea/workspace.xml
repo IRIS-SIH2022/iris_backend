@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eaa5d636-c3ac-493d-8593-e5a3cdaefda2" name="Changes" comment="Updated Gitignore 🚫">
-      <change afterPath="$PROJECT_DIR$/main.py.temp" afterDir="false" />
+    <list default="true" id="eaa5d636-c3ac-493d-8593-e5a3cdaefda2" name="Changes" comment="Updated GET requests 💉">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py.temp" beforeDir="false" afterPath="$PROJECT_DIR$/main.py.temp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,8 @@
       <workItem from="1659167374941" duration="15195000" />
       <workItem from="1659545846908" duration="1430000" />
       <workItem from="1660744646341" duration="5940000" />
-      <workItem from="1660931704121" duration="14761000" />
+      <workItem from="1660931704121" duration="27035000" />
+      <workItem from="1661021773723" duration="22333000" />
     </task>
     <task id="LOCAL-00001" summary="Using FastAPI ⚡️">
       <created>1658328459391</created>
@@ -135,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659206302391</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Updated GET requests 💉">
+      <created>1660998072201</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1660998072201</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,9 +166,10 @@
     <MESSAGE value="Backend V1 " />
     <MESSAGE value="Basic backend functionality implemented " />
     <MESSAGE value="Updated Gitignore " />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Gitignore " />
+    <MESSAGE value="Updated GET requests " />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated GET requests " />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/iris_backend$iris_backend.coverage" NAME="iris_backend Coverage Results" MODIFIED="1660993029246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/iris_backend$iris_backend.coverage" NAME="iris_backend Coverage Results" MODIFIED="1661058786206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

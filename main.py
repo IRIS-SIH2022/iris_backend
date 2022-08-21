@@ -7,15 +7,30 @@ from bson import ObjectId
 from typing import Optional, List
 import motor.motor_asyncio
 from dotenv import load_dotenv
-from datetime import date, datetime, time, timedelta
-import json
+import datetime
+import time
 
 load_dotenv()
 app = FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 db = client.Gotham
 
+def time_query(string):
+    clap = string.split(" - ")
+    blob = []
+    for i in clap:
+        blob.append(int(i.replace(":", "")))
+    return {"$gte": blob[0], "$lte": blob[1]}
 
+def date_query(string):
+    clap = string.split(" - ")
+    blob = []
+    for i in clap:
+        trip = i.split("/")
+        for i in range(0, len(trip)):
+            trip[i] = int(trip[i])
+        blob.append(int(time.mktime(datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple())))
+    return {"$gte": blob[0], "$lte": blob[1]}
 
 class PyObjectId(ObjectId):
     @classmethod
@@ -42,8 +57,8 @@ class CrimeDataModel(BaseModel):
     date: int = Field(...)
     primary_type: str = Field(...)
     description: str = Field(...)
-    act: str = Field(...)
-    station_id: int = Field(...)
+    act_type: str = Field(...)
+    StationID: int = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -53,13 +68,13 @@ class CrimeDataModel(BaseModel):
             "example": {
                 "lat": 28.614,
                 "lng": 77.203,
-                "case_number": "asdf",
+                "case_number": "ASDF",
                 "time": 1658130003,
                 "date": 1658130003,
                 "primary_type": "CRIME",
                 "description": "description of crime",
-                "act": "Pranav soni act of sexual deviance",
-                "station_id": 123,
+                "act_type": "IPC ---",
+                "StationID": 12,
             }
         }
 
@@ -71,8 +86,8 @@ class UpdateCrimeData(BaseModel):
     date: Optional[int]
     primary_type: Optional[str]
     description: Optional[str]
-    act: Optional[str]
-    station_id: Optional[int]
+    act_type: Optional[str]
+    StationID: Optional[int]
 
 
 @app.post(
@@ -87,8 +102,29 @@ async def create_marker(crime: CrimeDataModel = Body(...)):
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_crime)
 
 
+@app.post(
+    "/marker/request",
+    response_description="JSON request from the front-end",
+    response_model=List[CrimeDataModel]
+)
+async def extract_data(query: dict):
+    # query = jsonable_encoder(query)
+    dqb = {}
+    if query["case_number"] != "":
+        dqb["case_number"] = query["case_number"]
+        response = await db["CrimeMarkers"].find(dqb).to_list(1_00_000)
+        return response
+    else:
+        dqb = {k: v for k, v in query.items() if v != ""}
+        if query["date"] != "":
+            dqb["date"] = date_query(query["date"])
+        if query["time"] != "":
+            dqb["time"] = time_query(query["time"])
+        response = await db["CrimeMarkers"].find(dqb).to_list(1_00_000)
+        return response
+
 @app.get(
-    "/marker/get_all",
+    "/marker",
     response_description="List all crime markers",
     response_model=List[CrimeDataModel],
 )
@@ -97,61 +133,14 @@ async def list_crime_markers():
     return all_crime
 
 
-@app.get(
-    "/marker/id/{id}",
-    response_description="Get a single crime marker by id",
-    response_model=CrimeDataModel,
-)
-async def show_marker(id: str):
-    if (crime := await db["CrimeMarkers"].find_one({"_id": id})) is not None:
-        return crime
-    raise HTTPException(status_code=404, detail=f"Crime {id} not found")
-
-
-@app.get(
-    "/marker/case/{case_number}",
-    response_description="Get a single crime marker by case number",
-    response_model=CrimeDataModel,
-)
-async def show_marker(case_number: str):
-    if (
-        crime := await db["CrimeMarkers"].find_one({"case_number": case_number})
-    ) is not None:
-        return crime
-    raise HTTPException(status_code=404, detail=f"Crime {case_number} not found")
-
-
-@app.get(
-    "/marker/type/{primary_type}",
-    response_description="Get all crime markers by primary type",
-    response_model=List[CrimeDataModel],
-)
-async def list_crime_markers_type(primary_type: str):
-    all_crime = (
-        await db["CrimeMarkers"].find({"primary_type": primary_type}).to_list(100000)
-    )
-    return all_crime
-
-
-@app.get(
-    "/marker/type/{primary_type}",
-    response_description="Get all crime markers by primary type",
-    response_model=List[CrimeDataModel],
-)
-async def list_crime_markers_by_type(primary_type: str):
-    all_crime = (
-        await db["CrimeMarkers"].find({"primary_type": primary_type}).to_list(100000)
-    )
-    return all_crime
-
-
 class GeoJSONModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="gid")
     type: str = Field(...)
-    station_id: int = Field(...)
+    sho: str = Field(...)
+    StationID: int = Field(...)
     name: str = Field(...)
     district: str = Field(...)
-    geoJSON: dict = Field(...)
+    geometry: dict = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -162,7 +151,8 @@ class GeoJSONModel(BaseModel):
                 "type": "Major crime",
                 "district": "North Delhi",
                 "station_id": 123,
-                "geoJSON": {
+                "sho": "name of officer",
+                "geometry": {
                     "type": "Feature",
                     "properties": {},
                     "geometry": {
@@ -191,8 +181,10 @@ class GeoJSONModel(BaseModel):
 class UpdateGeoJSONData(BaseModel):
     type: Optional[str]
     district: Optional[str]
-    station_id: Optional[str]
-    geoJSON: Optional[dict]
+    name: Optional[str]
+    sho: Optional[str]
+    StationID: Optional[str]
+    geometry: Optional[dict]
 
 
 @app.post(
@@ -216,13 +208,12 @@ async def list_areas():
 
 
 @app.get(
-    "/area/{id}",
-    response_description="Get a single crime marker",
+    "/station/{id}",
+    response_description="Get a single area marker",
     response_model=CrimeDataModel,
 )
 async def show_area(id: str):
-    if (area := await db["GeoJSON"].find_one({"gid": id})) is not None:
+    if (area := await db["GeoJSON"].find_one({"StationID": id})) is not None:
         return area
 
     raise HTTPException(status_code=404, detail=f"Area {id} not found")
-
