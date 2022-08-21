@@ -9,11 +9,25 @@ import motor.motor_asyncio
 from dotenv import load_dotenv
 import datetime
 import time
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 app = FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 db = client.Gotham
+
+origins = [
+    "*"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 def time_query(string):
     clap = string.split(" - ")
@@ -109,18 +123,28 @@ async def create_marker(crime: CrimeDataModel = Body(...)):
 )
 async def extract_data(query: dict):
     # query = jsonable_encoder(query)
+    # print(query)
     dqb = {}
+    query["StationID"] = int(query["StationID"])
     if query["case_number"] != "":
         dqb["case_number"] = query["case_number"]
+        # dqb = jsonable_encoder(dqb)
         response = await db["CrimeMarkers"].find(dqb).to_list(1_00_000)
         return response
     else:
         dqb = {k: v for k, v in query.items() if v != ""}
-        if query["date"] != "":
-            dqb["date"] = date_query(query["date"])
-        if query["time"] != "":
-            dqb["time"] = time_query(query["time"])
+        if query["StationID"] == -1:
+            del dqb["StationID"]
+        if query["daterange"] != "":
+            dqb["date"] = date_query(query["daterange"])
+            del dqb["daterange"]
+        if query["timerange"] != "":
+            dqb["time"] = time_query(query["timerange"])
+            del dqb["timerange"]
+        # dqb = jsonable_encoder(dqb)
+        print(dqb)
         response = await db["CrimeMarkers"].find(dqb).to_list(1_00_000)
+
         return response
 
 @app.get(
@@ -210,10 +234,14 @@ async def list_areas():
 @app.get(
     "/station/{id}",
     response_description="Get a single area marker",
-    response_model=CrimeDataModel,
+    response_model=List[GeoJSONModel],
 )
 async def show_area(id: str):
-    if (area := await db["GeoJSON"].find_one({"StationID": id})) is not None:
-        return area
+    id = int(id)
+    if id == -1:
+        areas = await db["GeoJSON"].find().to_list(1000)
+        return areas
+    elif (area := await db["GeoJSON"].find_one({"StationID": id})) is not None:
+        return [area]
 
     raise HTTPException(status_code=404, detail=f"Area {id} not found")
