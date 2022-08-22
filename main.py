@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import datetime
 import time
 from fastapi.middleware.cors import CORSMiddleware
+
 # from fastapi_users.models import BaseUser, BaseUserCreate, BaseUserUpdate, BaseUserDB
 
 load_dotenv()
@@ -17,9 +18,7 @@ app = FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 db = client.Gotham
 
-origins = [
-    "*"
-]
+origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -29,13 +28,13 @@ app.add_middleware(
 )
 
 
-
 def time_query(string):
     clap = string.split(" - ")
     blob = []
     for i in clap:
         blob.append(int(i.replace(":", "")))
     return {"$gte": blob[0], "$lte": blob[1]}
+
 
 def date_query(string):
     clap = string.split(" - ")
@@ -44,8 +43,15 @@ def date_query(string):
         trip = i.split("/")
         for i in range(0, len(trip)):
             trip[i] = int(trip[i])
-        blob.append(int(time.mktime(datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple())))
+        blob.append(
+            int(
+                time.mktime(
+                    datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple()
+                )
+            )
+        )
     return {"$gte": blob[0], "$lte": blob[1]}
+
 
 class PyObjectId(ObjectId):
     @classmethod
@@ -105,9 +111,10 @@ class UpdateCrimeData(BaseModel):
     StationID: Optional[int]
 
 
-@app.get('/')
+@app.get("/")
 def hello():
     return "hello world"
+
 
 @app.post(
     "/marker/post_new",
@@ -124,7 +131,7 @@ async def create_marker(crime: CrimeDataModel = Body(...)):
 @app.post(
     "/marker/request",
     response_description="JSON request from the front-end",
-    response_model=List[CrimeDataModel]
+    response_model=List[CrimeDataModel],
 )
 async def extract_data(query: dict):
     # query = jsonable_encoder(query)
@@ -151,6 +158,7 @@ async def extract_data(query: dict):
         response = await db["CrimeMarkers"].find(dqb).to_list(1_00_000)
 
         return response
+
 
 @app.get(
     "/marker",
@@ -238,7 +246,7 @@ async def list_areas():
 
 @app.get(
     "/station/{id}",
-    response_description="Get a single area marker",
+    response_description="Get a single Station Region",
     response_model=List[GeoJSONModel],
 )
 async def show_area(id: str):
