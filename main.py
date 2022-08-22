@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import datetime
 import time
 from fastapi.middleware.cors import CORSMiddleware
+# from fastapi_users.models import BaseUser, BaseUserCreate, BaseUserUpdate, BaseUserDB
 
 load_dotenv()
 app = FastAPI()
@@ -103,6 +104,10 @@ class UpdateCrimeData(BaseModel):
     act_type: Optional[str]
     StationID: Optional[int]
 
+
+@app.get('/')
+def hello():
+    return "hello world"
 
 @app.post(
     "/marker/post_new",
