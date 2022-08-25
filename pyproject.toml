@@ -17,6 +17,7 @@ dnspython = "^2.2.1"
 email-validator = "^1.2.1"
 python-dotenv = "^0.20.0"
 fastapi-users = "^10.1.5"
+spacy = "^3.4.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
