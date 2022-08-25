@@ -169,25 +169,29 @@ async def extract_data(query: dict):
 @app.post(
     "/marker/add",
     response_description="Homomorphic entry into database",
-    response_model=CrimeDataModel
+    response_model=CrimeDataModel,
 )
 async def add_marker(raw: dict):
     raw[
-        "desc"] = f"Name of reporter: {raw['first_name']} {raw['last_name']}, Contact No. of reporter: {raw['phone']}, Description: {raw['desc']}"
+        "desc"
+    ] = f"Name of reporter: {raw['first_name']} {raw['last_name']}, Contact No. of reporter: {raw['phone']}, Description: {raw['desc']} "
 
-    marker = {"lat": float(raw['lat']), "lng": float(raw['lng']), "time": int("".join(raw['time'].split(":"))),
-              "StationID": int(raw["StationID"]), "description": raw["desc"], "case_number": str(raw["case_number"]),
-              "act_type": str(raw["act_type"]), "primary_type": str(raw["primary_type"])}
+    marker = {
+        "lat": float(raw["lat"]),
+        "lng": float(raw["lng"]),
+        "time": int("".join(raw["time"].split(":"))),
+        "StationID": int(raw["StationID"]),
+        "description": raw["desc"],
+        "case_number": str(raw["case_number"]),
+        "act_type": str(raw["act_type"]),
+        "primary_type": str(raw["primary_type"]),
+    }
     # marker.description = "test"
     trip = raw["date"].split("/")
     for i in range(0, len(trip)):
         trip[i] = int(trip[i])
-    marker["date"] = (
-        int(
-            time.mktime(
-                datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple()
-            )
-        )
+    marker["date"] = int(
+        time.mktime(datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple())
     )
     print(marker)
     marker = jsonable_encoder(marker)
@@ -225,7 +229,7 @@ class GeoJSONModel(BaseModel):
             "example": {
                 "type": "Major crime",
                 "district": "North Delhi",
-                "station_id": 123,
+                "StationID": 123,
                 "sho": "name of officer",
                 "geometry": {
                     "type": "Feature",
@@ -296,3 +300,76 @@ async def show_area(id: str):
         return [area]
 
     raise HTTPException(status_code=404, detail=f"Area {id} not found")
+
+
+class CrowdModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    # case_number: str = Field(...)
+    lat: float = Field(...)
+    lng: float = Field(...)
+    time: int = Field(...)
+    date: int = Field(...)
+    primary_type: str = Field(...)
+    description: str = Field(...)
+    act_type: str = Field(...)
+    StationID: int = Field(...)
+    image: str = Field(...)
+    address: str = Field(...)
+    name: str = Field(...)
+    verified: int = Field(...)
+    phno: int = Field(...)
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "lat": 72.291,
+                "lng": 28.73773737369,
+                "address": "India Gate",
+                "primary_type": "Murder",
+                "act_type": "IPC something",
+                "description": "Something bad happened",
+                "image": "www.4chan.com/sasank",
+                "StationID": 23,
+                "time": 1230,
+                "date": 1672672627,
+                "name": "Aman yadav",
+                "phno": 9696969696,
+                "verified": 1,
+            }
+        }
+
+
+@app.get(
+    "/list_crowd",
+    response_description="List all crowdsource markers",
+    response_model=List[CrowdModel],
+)
+async def list_crowdsource():
+    all_crime = await db["CrowdModel"].find().to_list(100000)
+    return all_crime
+
+# Write post request to enter data into CrowdModel
+@app.post(
+    "/crowd_post",
+    response_description="Enter single crowdsource marker",
+    response_model=CrowdModel,
+)
+async def crowd_post(marker: CrowdModel = Body(...)):
+    area = jsonable_encoder(marker)
+    new_area = await db["CrowdModel"].insert_one(area)
+    created_area = await db["CrowdModel"].find_one({"_id": new_area.inserted_id})
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_area)
+
+
+@app.get(
+    "/verify/remove/{_id}",
+    response_description="Remove marker from database",
+    response_model=str,
+)
+async def remove_marker(_id: str):
+    temp = await db["CrowdModel"].delete_one({"_id": _id})
+    print(temp)
+    return JSONResponse(status_code=status.HTTP_200_OK, content="Deleted")
