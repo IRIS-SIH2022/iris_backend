@@ -19,7 +19,6 @@ from heapq import nlargest
 # from fastapi_users.models import BaseUser, BaseUserCreate, BaseUserUpdate, BaseUserDB
 
 
-
 load_dotenv()
 app = FastAPI()
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
@@ -173,25 +172,24 @@ async def extract_data(query: dict):
     response_model=CrimeDataModel
 )
 async def add_marker(raw: dict):
-    marker: CrimeDataModel = Body(...)
-    marker.lat = float(raw['lat'])
-    marker.lng = float(raw['lng'])
-    marker.time = int("".join(raw['time'].split(":")))
-    marker.StationID = int(raw["StationID"])
-    marker.description = str(f"Name of reporter: {raw['first_name']} {raw['last_name']}, Contact No. of reporter: {raw['phone']}, Description: {raw['desc']}")
-    marker.case_number = str(raw["case_number"])
-    marker.act_type = str(raw["act_type"])
-    marker.primary_type = str(raw["primary_type"])
+    raw[
+        "desc"] = f"Name of reporter: {raw['first_name']} {raw['last_name']}, Contact No. of reporter: {raw['phone']}, Description: {raw['desc']}"
+
+    marker = {"lat": float(raw['lat']), "lng": float(raw['lng']), "time": int("".join(raw['time'].split(":"))),
+              "StationID": int(raw["StationID"]), "description": raw["desc"], "case_number": str(raw["case_number"]),
+              "act_type": str(raw["act_type"]), "primary_type": str(raw["primary_type"])}
+    # marker.description = "test"
     trip = raw["date"].split("/")
     for i in range(0, len(trip)):
         trip[i] = int(trip[i])
-    marker.date = (
+    marker["date"] = (
         int(
             time.mktime(
                 datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple()
             )
         )
     )
+    print(marker)
     marker = jsonable_encoder(marker)
     # temp = json.loads(marker)
 
