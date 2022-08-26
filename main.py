@@ -308,7 +308,7 @@ class CrowdModel(BaseModel):
     lat: float = Field(...)
     lng: float = Field(...)
     time: int = Field(...)
-    date: int = Field(...)
+    date: str = Field(...)
     primary_type: str = Field(...)
     description: str = Field(...)
     act_type: str = Field(...)
