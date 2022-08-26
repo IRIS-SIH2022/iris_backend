@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Crime</title>
+    <script type="module" crossorigin src="/assets/record.6f2fdbce.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/style.a87c9e06.js">
+    <link rel="modulepreload" crossorigin href="/assets/dropdownData.a3ac6ca1.js">
+    <link rel="stylesheet" href="/assets/style.db9f5690.css">
+  </head>
+
+  <body class="bg-gray-900">
+    <main
+      class="bg-gray-100 dark:bg-gray-900 rounded-2xl h-screen overflow-hidden relative"
+    >
+      <div class="flex items-start justify-between">
+        <div class="h-screen hidden lg:block my-4 ml-4 shadow-lg relative">
+          <div class="bg-white h-full rounded-2xl dark:bg-gray-700">
+            <div class="flex items-center justify-center pt-6">
+              <img src="/assets/logo.803d97ff.png" alt="logo" class="w-16 p-1" />
+            </div>
+            <nav class="mt-6">
+              <div>
+                <a
+                  class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
+                  href="/"
+                >
+                  <span class="text-left">
+                    <svg
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      viewBox="0 0 2048 1792"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1070 1178l306-564h-654l-306 564h654zm722-282q0 182-71 348t-191 286-286 191-348 71-348-71-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <!-- <span class="mx-4 text-sm font-normal"> Dashboard </span> -->
+                </a>
+                <a
+                  class="w-full font-thin uppercase text-blue-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start bg-gradient-to-r from-white to-blue-100 border-r-4 border-blue-500 dark:from-gray-700 dark:to-gray-800 border-r-4 border-blue-500"
+                  href="record.html"
+                >
+                  <span class="text-left">
+                    <svg
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      class="m-auto"
+                      viewBox="0 0 2048 1792"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1024 1131q0-64-9-117.5t-29.5-103-60.5-78-97-28.5q-6 4-30 18t-37.5 21.5-35.5 17.5-43 14.5-42 4.5-42-4.5-43-14.5-35.5-17.5-37.5-21.5-30-18q-57 0-97 28.5t-60.5 78-29.5 103-9 117.5 37 106.5 91 42.5h512q54 0 91-42.5t37-106.5zm-157-520q0-94-66.5-160.5t-160.5-66.5-160.5 66.5-66.5 160.5 66.5 160.5 160.5 66.5 160.5-66.5 66.5-160.5zm925 509v-64q0-14-9-23t-23-9h-576q-14 0-23 9t-9 23v64q0 14 9 23t23 9h576q14 0 23-9t9-23zm0-260v-56q0-15-10.5-25.5t-25.5-10.5h-568q-15 0-25.5 10.5t-10.5 25.5v56q0 15 10.5 25.5t25.5 10.5h568q15 0 25.5-10.5t10.5-25.5zm0-252v-64q0-14-9-23t-23-9h-576q-14 0-23 9t-9 23v64q0 14 9 23t23 9h576q14 0 23-9t9-23zm256-320v1216q0 66-47 113t-113 47h-352v-96q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v96h-768v-96q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v96h-352q-66 0-113-47t-47-113v-1216q0-66 47-113t113-47h1728q66 0 113 47t47 113z"
+                      ></path>
+                    </svg>
+                  </span>
+                  <!-- <span class="mx-4 text-sm font-normal"> Projects </span> -->
+                </a>
+                <a
+                  class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
+                  href="/verify.html"
+                >
+                  <span class="text-left">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm2.543 8.142a.75.75 0 10-.993-1.124 12.785 12.785 0 00-3.209 4.358L9.53 12.22a.75.75 0 00-1.06 1.06l2.135 2.136a.75.75 0 001.24-.289 11.264 11.264 0 013.214-4.815z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <!-- <span class="mx-4 text-sm font-normal"> Dashboard </span> -->
+                </a>
+                
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div class="flex flex-col w-full pl-0 md:p-4">
+          <header
+            class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40"
+          >
+            <div
+              class="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center"
+            >
+              <div
+                class="text-4xl font-bold text-gray-900 text-center dark:text-gray-200"
+              >
+                IRIS Crime Recording Form
+              </div>
+            </div>
+          </header>
+          <div
+            class="overflow-auto h-auto pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0"
+          >
+            <div class="flex flex-col flex-wrap sm:flex-row">
+              <div class="w-full mt-4 bg-gray-700 rounded-2xl p-14">
+                <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
+                  <form id="record-form">
+                    <div class="grid md:grid-cols-2 md:gap-6">
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                          type="text"
+                          name="first_name"
+                          id="first_name"
+                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          required=""
+                        />
+                        <label
+                          for="first_name"
+                          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >First name</label
+                        >
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                          type="text"
+                          name="last_name"
+                          id="last_name"
+                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          required=""
+                        />
+                        <label
+                          for="last_name"
+                          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >Last name</label
+                        >
+                      </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 md:gap-6">
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                          type="tel"
+                          pattern="[0-9]{10}"
+                          name="phone"
+                          id="phone"
+                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          required=""
+                        />
+                        <label
+                          for="phone"
+                          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >Phone number (1234567890)</label
+                        >
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                          type="text"
+                          name="case_number"
+                          id="cctns"
+                          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          pattern="[A-Z]{2}[0-9]{7}"
+                          required=""
+                        />
+                        <label
+                          for="cctns"
+                          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          >CCTNS Number (AB1234567)</label
+                        >
+                      </div>
+                    </div>
+                    <div class="relative z-0 mb-6 w-full group">
+                      <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" "
+                        required=""
+                      />
+                      <label
+                        for="address"
+                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >Address</label
+                      >
+                    </div>
+
+                    <div class="grid md:grid-cols-3 md:gap-6">
+                      <div class="relative z-0 mb-6 w-full group">
+                        <label
+                          for="stations"
+                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                          >Select your Station</label
+                        >
+                        <select
+                          id="stations"
+                          name="StationID"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option value="-1" selected>Choose Station</option>
+                        </select>
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <label
+                          for="acts"
+                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                          >Select Act</label
+                        >
+                        <select
+                          id="acts"
+                          name="act_type"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option value="" selected>Choose Act</option>
+                        </select>
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <label
+                          for="primaryTypes"
+                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                          >Select Crime
+                        </label>
+                        <select
+                          id="primaryTypes"
+                          name="primary_type"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option value="" selected>Choose Crime</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 md:gap-6">
+                      <div class="relative z-0 mb-6 w-full">
+                        <label
+                          for="message"
+                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                          >Description of Crime</label
+                        >
+                        <textarea
+                          id="message"
+                          name="desc"
+                          rows="4"
+                          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="Leave a comment..."
+                        ></textarea>
+                      </div>
+                      <div class="flex flex-col">
+                        <div class="grid md:grid-cols-2 md:gap-6">
+                          <div class="relative z-0 mb-6 w-full group">
+                            <label
+                              for="date"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                              >Select Date</label
+                            >
+                            <input
+                              id="date"
+                              name="date"
+                              type="text"
+                              placeholder="Select date"
+                              value=""
+                              autocomplete="off"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                          </div>
+                          <div class="relative z-0 mb-6 w-full group">
+                            <label
+                              for="time"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                              >Select Time</label
+                            >
+                            <input
+                              id="time"
+                              name="time"
+                              type="text"
+                              placeholder="Select Time"
+                              value=""
+                              autocomplete="off"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                          </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 md:gap-6">
+                          <div class="relative z-0 mb-6 w-full group">
+                            <input
+                              type="text"
+                              name="lat"
+                              id="lat"
+                              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                            />
+                            <label
+                              for="lat"
+                              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                              >Latitude</label
+                            >
+                          </div>
+                          <div class="relative z-0 mb-6 w-full group">
+                            <input
+                              type="text"
+                              name="lng"
+                              id="lng"
+                              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                            />
+                            <label
+                              for="floating_company"
+                              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                              >Longitude</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    
+    
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
+    <script>
+      $(function () {
+        $('input[name="date"]').daterangepicker({
+          opens: "right",
+          drops: "up",
+          singleDatePicker: true,
+          autoApply: true,
+          locale: {
+            format: "DD/MM/YYYY",
+          },
+        });
+      });
+
+      $(function () {
+        $('input[name="time"]')
+          .daterangepicker({
+            timePicker: true,
+            timePicker24Hour: true,
+            singleDatePicker: true,
+            startDate: moment(),
+            opens: "right",
+            locale: {
+              format: "HH:mm",
+            },
+          })
+          .on("show.daterangepicker", function (ev, picker) {
+            picker.container.find(".calendar-table").hide();
+          });
+      });
+    </script>
+  </body>
+</html>
