@@ -351,6 +351,7 @@ async def list_crowdsource():
     all_crime = await db["CrowdModel"].find().to_list(100000)
     return all_crime
 
+
 # Write post request to enter data into CrowdModel
 @app.post(
     "/crowd_post",
@@ -373,3 +374,41 @@ async def remove_marker(_id: str):
     temp = await db["CrowdModel"].delete_one({"_id": _id})
     print(temp)
     return JSONResponse(status_code=status.HTTP_200_OK, content="Deleted")
+
+
+@app.post(
+    "/verify/accept/",
+    response_description="Accept marker from database and add it to CrimeMarker DB",
+    response_model=CrimeDataModel,
+)
+async def accept_marker(clap: dict):
+    print(clap)
+    raw = await db["CrowdModel"].find_one({"_id": clap["_id"]})
+    mass_desc = f"Name of reporter: {raw['name']}, Contact No. of reporter: {raw['phno']}, Address: {raw['address']}, Description: {raw['description']} "
+    marker = {
+        "lat": float(raw["lat"]),
+        "lng": float(raw["lng"]),
+        # "time": int("".join(raw["time"].split(":"))),
+        "StationID": int(raw["StationID"]),
+        "description": mass_desc,
+        "case_number": str(clap["case_number"]),
+        "act_type": str(clap["act_type"]),
+        "primary_type": str(clap["primary_type"]),
+        "time": int(raw["time"]),
+    }
+    # marker.description = "test"
+    trip = raw["date"].split("/")
+    for i in range(0, len(trip)):
+        trip[i] = int(trip[i])
+    marker["date"] = int(
+        time.mktime(datetime.datetime(trip[2], trip[1], trip[0], 00, 00).timetuple())
+    )
+    print(marker)
+    marker = jsonable_encoder(marker)
+    # temp = json.loads(marker)
+
+    new_marker = await db["CrimeMarkers"].insert_one(marker)
+    created_marker = await db["CrimeMarkers"].find_one({"id_": new_marker.inserted_id})
+    # remove from CrowdModel
+    await db["CrowdModel"].delete_one({"_id": raw["_id"]})
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_marker)
