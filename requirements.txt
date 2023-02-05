@@ -49,3 +49,4 @@ uvicorn
 wasabi
 bson
 pydantic
+pymongo
