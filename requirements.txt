@@ -9,5 +9,5 @@ pytest
 python-dotenv
 uvicorn
 bson
-dotenv
+python-dotenv
 pydantic
