@@ -48,6 +48,14 @@ def date_query(string):
     for i in clap:
         trip = i.split("/")
         for i in range(0, len(trip)):
+            # HACK: If month is more than may then go to 2021
+            # else go to 2022
+            # Doing this cause our data in db is from ~2021 May to ~2022 May
+            if int(trip[1]) >= 5:
+                trip[2] = "2021"
+            if int(trip[1]) < 5:
+                trip[2] = "2022"
+
             trip[i] = int(trip[i])
         blob.append(
             int(
@@ -172,9 +180,9 @@ async def extract_data(query: dict):
     response_model=CrimeDataModel,
 )
 async def add_marker(raw: dict):
-    raw[
-        "desc"
-    ] = f"Name of reporter: {raw['first_name']} {raw['last_name']}, Contact No. of reporter: {raw['phone']}, Description: {raw['desc']} "
+    raw["desc"] = (
+        f"Name of reporter: {raw['first_name']} {raw['last_name']}, Contact No. of reporter: {raw['phone']}, Description: {raw['desc']} "
+    )
 
     marker = {
         "lat": float(raw["lat"]),
